@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/todo-kotlin/todoapp
+    docker:
+      - image: circleci/android:api-28-alpha
+    environment:
+      GRADLE_OPTS: -Dorg.gradle.jvmargs=-Xmx2048m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8
+    steps:
+      - checkout
+      - run:
+          name: Lint and Test
+          command: |
+            ./gradlew build --scan
